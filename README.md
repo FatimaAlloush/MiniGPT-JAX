@@ -155,7 +155,33 @@ The model can also be tested through an interactive web interface:
 ![Gradio Demo](assets/gradio_demo.png)
 
 ---
+---
 
+## Model Checkpoints
+
+The trained model checkpoints are hosted on Hugging Face to keep this repository lightweight.
+
+Download the checkpoints from the Hugging Face Hub:
+
+**MiniGPT-JAX Model Repository**
+
+https://huggingface.co/FatimaAlloush/MiniGPT-JAX
+
+After downloading, place the checkpoints under:
+
+```text
+checkpoints/
+├── pretrained_checkpoint.orbax
+└── trained_small_checkpoint.orbax
+```
+
+Once the checkpoints are available, launch the Gradio interface with:
+
+```bash
+python -m inference.run_inference
+```
+
+---
 ## Future Improvements
 
 Planned improvements include:
