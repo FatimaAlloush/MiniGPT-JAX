@@ -32,7 +32,7 @@ restore_args = jax.tree_util.tree_map(
 nnx.state(model)
 
 checkpoint_dir = download_checkpoints()
-checkpoint_path = checkpoint_dir / "pretrained_checkpoint.orbax"
+checkpoint_path = (checkpoint_dir / "pretrained_checkpoint.orbax").resolve()
 
 checkpointer = orbax.checkpoint.PyTreeCheckpointer()
 
