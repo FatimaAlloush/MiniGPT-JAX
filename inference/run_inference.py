@@ -8,7 +8,7 @@ from inference.generate import generate_story
 from models.mini_gpt import MiniGPT
 from utils.tokenizer_utils import VOCAB_SIZE
 import gradio as gr
-
+from utils.checkpoints import download_checkpoints
 
 #create a model of same architecture, with random initialized params
 model = MiniGPT(
@@ -31,7 +31,9 @@ restore_args = jax.tree_util.tree_map(
 
 nnx.state(model)
 
-checkpoint_path = Path.cwd() /"checkpoints/pretrained_checkpoint.orbax"
+checkpoint_dir = download_checkpoints()
+checkpoint_path = checkpoint_dir / "pretrained_checkpoint.orbax"
+
 checkpointer = orbax.checkpoint.PyTreeCheckpointer()
 
 #the actual parameters restore
@@ -48,7 +50,7 @@ def create_story(story_prompt, temperature, max_new_tokens):
     return generate_story(model, story_prompt, temperature, max_new_tokens)
 
 #example
-create_story("Once upon a time a big bear ", 0.2, 30)
+#create_story("Once upon a time a big bear ", 0.2, 30)
 
 #use gradio, to create a web interface
 
