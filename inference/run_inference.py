@@ -36,14 +36,19 @@ checkpoint_path = (checkpoint_dir / "pretrained_checkpoint.orbax").resolve()
 
 checkpointer = orbax.checkpoint.PyTreeCheckpointer()
 
+print("Starting checkpoint restore...")
 #the actual parameters restore
 restored_state = checkpointer.restore(
     checkpoint_path,
     item=nnx.state(model),
     restore_args=restore_args)
 
+print("Checkpoint restored successfully!")
+
 #update the random initialized parameters to the pretrained loaded ones
 nnx.update(model,restored_state)
+
+print("Model ready!")
 
 #run inference fct
 def create_story(story_prompt, temperature, max_new_tokens):
@@ -67,4 +72,7 @@ demo = gr.Interface(
     outputs=["text"]
 )
 
-demo.launch(share=True)
+demo.launch(
+    server_name="0.0.0.0",
+    server_port=7860
+)
